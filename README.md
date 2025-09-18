@@ -29,6 +29,7 @@ codexflow/
 │ ├── src/
 │ ├── public/
 │ └── package.json
+├── wails.json
 ├── scripts/ # Dev/build helper scripts
 ├── Makefile # Build automation
 ├── go.mod # Go module definition

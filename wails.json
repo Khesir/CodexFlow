@@ -1,0 +1,14 @@
+{
+  "name": "CodexFlow",
+   "version": "0.1.0",
+  "description": "CodexFlow — a lightweight project management system for organizing tasks and workflows.",
+  "frontend:dir": "frontend",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev": "npm run dev",
+  "outputfilename": "CodexFlow",
+  "author": {
+    "name": "Khesir",
+    "email": "khesir.dev@gmail.com"
+  }
+}

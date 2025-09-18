@@ -1,36 +1,44 @@
-package main
+package cmd
 
 import (
+	server "app/internal"
+	"context"
 	"embed"
-	"io/fs"
 	"log"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
 var embeddedFrontend embed.FS
 
-func main() {
-	r := gin.Default()
+type App struct{}
 
-	// API routes
-	api := r.Group("/api")
-	{
-		api.GET("/ping", func(c *gin.Context) {
-			c.JSON(http.StatusOK, gin.H{"message": "pong"})
-		})
-	}
+func NewApp() *App { return &App{} }
 
-	// Serve frontend static files
-	distFS, _ := fs.Sub(embeddedFrontend, "frontend/dist")
-	r.StaticFS("/assets", http.FS(distFS)) // serve static assets
+func (a *App) Startup(ctx context.Context) {
+	// optional: do startup logic
+}
 
-	// SPA fallback for React Router
-	r.NoRoute(func(c *gin.Context) {
-		c.FileFromFS("index.html", http.FS(distFS))
+func Main() {
+	// Start Gin server in background; provide embedded frontend FS so the
+	// same API + static serve works in the desktop packaged app.
+	go func() {
+		// pass the raw embed FS; server.Start will take care of fs.Sub internally
+		if err := server.Start(":8080", embeddedFrontend); err != nil {
+			log.Println("server stopped:", err)
+		}
+	}()
+
+	app := NewApp()
+	err := wails.Run(&options.App{
+		Title:     "CodexFlow",
+		Width:     1200,
+		Height:    800,
+		Assets:    embeddedFrontend,
+		OnStartup: app.Startup,
 	})
-
-	log.Println("Server running at http://localhost:8080")
-	r.Run(":8080")
+	if err != nil {
+		log.Fatal("wails run error:", err)
+	}
 }
