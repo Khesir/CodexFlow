@@ -10,6 +10,7 @@ function App() {
     try {
       const res = await api.get("/ping");
       setMsg(res.data.message);
+      console.log(res.data.message)
     } catch (err) {
       console.error("Error:", err);
     }
