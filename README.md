@@ -1,8 +1,9 @@
 # CodexFlow
 
-![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?logo=go&logoColor=white)
-![Node Version](https://img.shields.io/badge/Node-18+-339933?logo=node.js&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+![Go Version](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)
+![Node Version](https://img.shields.io/badge/Node-22.19.0-339933?logo=node.js&logoColor=white)
+![npm Version](https://img.shields.io/badge/npm-10.8.3-CB3837?logo=npm&logoColor=white)
 
 **CodexFlow** — a lightweight project management system for organizing tasks, iterations, and workflows.  
 Built with **Go (Gin)** for backend, **React + Vite** for frontend, and designed to scale into both **web** and **desktop (via Wails)** apps.
@@ -43,8 +44,7 @@ codexflow/
 
 - [Go](https://go.dev/dl/) (>= 1.21)  
 - [Node.js](https://nodejs.org/) (>= 18) + npm or yarn  
-- [Air](https://github.com/air-verse/air) (for hot reload in backend)  
-- [Wails](https://wails.io/) (optional, for desktop builds)
+- [Air](https://github.com/air-verse/air) (1.63.0) for hot reload in backend  
 
 ---
 
