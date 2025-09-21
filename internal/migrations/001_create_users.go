@@ -2,7 +2,7 @@ package migrations
 
 import "github.com/jmoiron/sqlx"
 
-func MigrationCreateUsers(db *sqlx.DB) error {
+func MigrationCreateUsers(db sqlx.Ext) error {
 	_, err := db.Exec(`
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,

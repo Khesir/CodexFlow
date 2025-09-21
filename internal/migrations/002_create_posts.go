@@ -2,7 +2,7 @@ package migrations
 
 import "github.com/jmoiron/sqlx"
 
-func MigrationCreatePosts(db *sqlx.DB) error {
+func MigrationCreatePosts(db sqlx.Ext) error {
 	_, err := db.Exec(`
         CREATE TABLE IF NOT EXISTS posts (
             id SERIAL PRIMARY KEY,
