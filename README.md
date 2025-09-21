@@ -5,45 +5,52 @@
 ![Node Version](https://img.shields.io/badge/Node-22.19.0-339933?logo=node.js&logoColor=white)
 ![npm Version](https://img.shields.io/badge/npm-10.8.3-CB3837?logo=npm&logoColor=white)
 
-**CodexFlow** — a lightweight project management system for organizing tasks, iterations, and workflows.  
-Built with **Go (Gin)** for backend, **React + Vite** for frontend, and designed to scale into both **web** and **desktop (via Wails)** apps.
+**CodexFlow** — a lightweight project management system for organizing tasks, iterations, and workflows.
+Built with **Go (Gin + sqlx)** for the backend, **React + Vite + shadcn/ui** for the frontend, and packaged into a desktop app with **Electron**.
 
 ## Features
 
-- Buckets, Projects, Tasks, and Iterations management  
-- REST API backend in Go (Gin)  
-- PostgreSQL database support  
-- Modern frontend with React + Vite + TypeScript  
-- Axios for API calls  
-- Docker-ready for hosting  
-- Future-ready for desktop builds with **Wails**
-
+- Buckets, Projects, Tasks, and Iterations management
+- REST API backend with Go (Gin)
+- PostgreSQL database + migrations
+- Modern frontend with React + Vite + shadcn/ui (Tailwind-based)
+- Axios for API calls
+- Electron integration → single-binary desktop app
+- Docker-ready for hosting backend standalone
 
 ## Project Structure
 
 ```
 codexflow/
-├── cmd/ # Go backend entrypoint(s)
-│ └── main.go
-├── models/ # Domain models (Task, Project, etc.)
-├── frontend/ # React + Vite frontend
-│ ├── src/
-│ ├── public/
-│ └── package.json
-├── wails.json
-├── scripts/ # Dev/build helper scripts
-├── Makefile # Build automation
-├── go.mod # Go module definition
-├── go.sum # Go module checksums
+├── cmd/                     # Go backend entrypoint(s)
+│   └── main.go
+├── internal/                # Internal Go packages
+│   ├── api/                 # HTTP API (Gin handlers)
+│   │   └── user/       
+│   ├── core/                # Business logic
+│   ├── db/                  # Database init/helpers
+│   └── migrations/          # DB migrations
+├── frontend/                # React + Vite + shadcn/ui frontend
+│   ├── src/
+│   ├── public/
+│   └── package.json
+├── electron/                # Electron app wrapper
+│   └── main.js
+├── scripts/                 # Dev/build helper scripts
+├── docker-compose.dev.yml   # Development external dependencies
+├── Makefile                 # Build automation
+├── go.mod
+├── go.sum
 └── README.md
+
 ```
 
 ---
 
 ## ⚡ Requirements
 
-- [Go](https://go.dev/dl/) (>= 1.21)  
-- [Node.js](https://nodejs.org/) (>= 18) + npm or yarn  
+- [Go](https://go.dev/dl/) (>= 1.25)  
+- [Node.js](https://nodejs.org/) (>= 22) + npm or yarn  
 - [Air](https://github.com/air-verse/air) (1.63.0) for hot reload in backend  
 
 ---
@@ -97,37 +104,23 @@ cd frontend
 npm run build
 ```
 
+The frontend proxies API calls to the Go backend `(see vite.config.ts)`.
+
 ### 5. Build Go backend
 
 ```sh
 go build -o codexflow ./cmd
 ```
 
-This will embed frontend/dist into the binary if you configured embed.FS.
-
-## Desktop (Optional)
-
-If you want to run CodexFlow as a native desktop app:
-
-### 1. Install Wails
+### 6. Electron (Desktop wrapper)
 
 ```sh
-go install github.com/wailsapp/wails/v2/cmd/wails@latest
+cd electron
+npm install
+npm start
 ```
 
-### 2. Run in dev
-
-```sh
-wails dev
-```
-
-### 3. Build desktop app
-
-```sh
-wails build
-```
-
-You’ll get a single .exe (Windows) or .app (macOS).
+Electron will open a desktop window pointing at the dev frontend/backend.
 
 ## Docker (Optional)
 
