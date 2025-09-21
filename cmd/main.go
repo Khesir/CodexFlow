@@ -1,7 +1,7 @@
 package main
 
 import (
-	"app/migrations"
+	"app/internal/migrations"
 	"context"
 	"log"
 	"net/http"
