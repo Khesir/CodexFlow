@@ -12,6 +12,7 @@ var Migrations = []struct {
 }{
 	{"001_create_users", MigrationCreateUsers},
 	{"002_create_posts", MigrationCreatePosts},
+	{"003_updated_users", MigrationUpdateUsers},
 }
 
 func RunMigrations(db *sqlx.DB) {
