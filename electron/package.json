@@ -9,5 +9,8 @@
   },
   "devDependencies": {
     "electron": "38.1.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2"
   }
 }
