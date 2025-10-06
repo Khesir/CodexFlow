@@ -17,7 +17,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className='bg-amber-400'>
       <h1>Scrum App</h1>
       <button onClick={pingServer}>Ping Server</button>
       {msg && <p>Server says: {msg}</p>}
